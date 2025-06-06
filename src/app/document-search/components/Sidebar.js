@@ -6,7 +6,12 @@ import ApproveSection from "./ApproveSection"
 import EditRegexSection from "./EditRegexSection"
 import PropTypes from "prop-types"
 
-const Sidebar = ({ regexData, handleModeChange, handleRegexChange }) => {
+const Sidebar = ({
+  regexData,
+  handleModeChange,
+  handleRegexChange,
+  handleStatusChange,
+}) => {
   const [shouldShowApprovalSection, setShouldShowApprovalSection] =
     useState(false)
   return (
@@ -16,16 +21,24 @@ const Sidebar = ({ regexData, handleModeChange, handleRegexChange }) => {
           onClick={() => {
             setShouldShowApprovalSection(!shouldShowApprovalSection)
             handleModeChange(regexData)
-        }
-          }
+          }}
         >
           Switch Mode
         </Button>
       </div>
       {shouldShowApprovalSection ? (
-        <ApproveSection options={regexData} handleSelection={(selectedRegex) => handleModeChange(selectedRegex)} />
+        <ApproveSection
+          options={regexData}
+          handleSelection={(selectedRegex) => handleModeChange(selectedRegex)}
+          handleClick={(status, selectedRegexValue) => handleStatusChange(status, selectedRegexValue)}
+        />
       ) : (
-        <EditRegexSection options={regexData} handleRegexChange={(action, value, newValue) => handleRegexChange(action, value, newValue)}/>
+        <EditRegexSection
+          options={regexData}
+          handleRegexChange={(action, value, newValue) =>
+            handleRegexChange(action, value, newValue)
+          }
+        />
       )}
     </aside>
   )
@@ -36,5 +49,5 @@ export default Sidebar
 Sidebar.propTypes = {
   regexData: PropTypes.array,
   handleModeChange: PropTypes.func,
-  handleRegexChange: PropTypes.func
+  handleRegexChange: PropTypes.func,
 }

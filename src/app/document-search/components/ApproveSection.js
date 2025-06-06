@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/select"
 import PropTypes from "prop-types"
 import { useState } from "react"
+import { REGEX_STATUS } from "./constants"
 
-const ApproveSection = ({ options, handleSelection }) => {
+const ApproveSection = ({ options, handleSelection, handleClick }) => {
   const [selectedRegex, setSelectedRegex] = useState(null)
 
     const handleOptionSelect = (value) => {
@@ -36,9 +37,9 @@ const ApproveSection = ({ options, handleSelection }) => {
   const renderCTAs = () => {
     if (!selectedRegex) return null
     return (
-      <div>
-        <Button>Approve</Button>
-        <Button>Reject</Button>
+      <div className="flex flex-col">
+        <Button className="cursor-pointer my-4" onClick={() => handleClick(REGEX_STATUS.APPROVED, selectedRegex)}>Approve</Button>
+        <Button className="cursor-pointer" onClick={() => handleClick(REGEX_STATUS.REJECTED, selectedRegex)}>Reject</Button>
       </div>
     )
   }
@@ -56,4 +57,6 @@ export default ApproveSection
 
 ApproveSection.propTypes = {
   options: PropTypes.array.isRequired,
+  handleSelection: PropTypes.func,
+  handleClick: PropTypes.func
 }

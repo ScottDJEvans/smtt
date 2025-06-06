@@ -5,7 +5,7 @@ import { MOCK_REGEX_VALUES } from "../mock-data"
 import MainDocumentArea from "./MainDocumentArea"
 import Sidebar from "./Sidebar"
 import { getRegexResults } from "./utils"
-import { REGEX_ACTIONS } from "./constants"
+import { REGEX_ACTIONS, REGEX_STATUS } from "./constants"
 
 const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
   const [document, setDocument] = useState(initialText)
@@ -34,7 +34,7 @@ const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
       case REGEX_ACTIONS.ADD:
         updated.push({
           value: newValue,
-          status: "pending",
+          status: REGEX_STATUS.PENDING
         })
         break;
       case REGEX_ACTIONS.EDIT:
@@ -46,7 +46,16 @@ const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
         updated = updated.filter((regex) => regex.value !== value)
         break;
     }
-    console.log(updated);
+    setRegexData(updated)
+  }
+
+  const handleStatusChange = (status, selectedRegexValue) => {
+    let updated = [...regexData]
+    updated = updated.map((regex) => {
+      return regex.value === selectedRegexValue
+        ? { ...regex, status: status }
+        : regex
+    })
     setRegexData(updated)
   }
 
@@ -58,6 +67,7 @@ const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
         handleRegexChange={(action, value, newValue) =>
           handleRegexChange(action, value, newValue)
         }
+        handleStatusChange={(status, selectedRegexValue) => handleStatusChange(status, selectedRegexValue)}
       />
       <MainDocumentArea initialText={initialText} matches={results} />
     </div>
