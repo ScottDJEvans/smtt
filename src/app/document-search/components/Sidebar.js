@@ -6,22 +6,24 @@ import ApproveSection from "./ApproveSection"
 import EditRegexSection from "./EditRegexSection"
 import PropTypes from "prop-types"
 
-const Sidebar = ({ regexData }) => {
+const Sidebar = ({ regexData, handleModeChange }) => {
   const [shouldShowApprovalSection, setShouldShowApprovalSection] =
     useState(false)
   return (
     <aside className="w-64 mr-6 rounded min-h-full bg-gray-300 block top-0 left-0 ">
       <div className="mt-2 flex place-self-center">
         <Button
-          onClick={() =>
+          onClick={() => {
             setShouldShowApprovalSection(!shouldShowApprovalSection)
+            handleModeChange(regexData)
+        }
           }
         >
           Switch Mode
         </Button>
       </div>
       {shouldShowApprovalSection ? (
-        <ApproveSection options={regexData} />
+        <ApproveSection options={regexData} handleSelection={(selectedRegex) => handleModeChange(selectedRegex)} />
       ) : (
         <EditRegexSection options={regexData}/>
       )}

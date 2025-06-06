@@ -1,17 +1,28 @@
 "use client"
 
+import { useState } from "react"
 import { MOCK_REGEX_VALUES } from "../mock-data"
 import MainDocumentArea from "./MainDocumentArea"
 import Sidebar from "./Sidebar"
-import { getInitialDocumentText } from "./utils"
+import { getRegexResults } from "./utils"
 
+const Dashboard = ({ regexData = MOCK_REGEX_VALUES, initialText }) => {
+  const [document, setDocument] = useState(initialText)
+  const [results, setResults] = useState(
+    getRegexResults(regexData, initialText)
+  )
+  const handleSidebarModeSelection = (regex) => {
+    const results = getRegexResults(regex, document)
+    setResults(results)
+  }
 
-const Dashboard = ({ regexData = MOCK_REGEX_VALUES }) => {
-    const initialText = getInitialDocumentText()
   return (
     <div className="flex">
-      <Sidebar regexData={regexData}/>
-      <MainDocumentArea initialText={initialText} />
+      <Sidebar
+        regexData={regexData}
+        handleModeChange={(regex) => handleSidebarModeSelection(regex)}
+      />
+      <MainDocumentArea initialText={initialText} matches={results} />
     </div>
   )
 }
