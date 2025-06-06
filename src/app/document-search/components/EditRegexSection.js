@@ -6,17 +6,22 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
   const [isEditing, setIsEditing] = useState(null)
   const [newRegexValue, setNewRegexValue] = useState("")
 
-  const handleSaveClick = () => {
-    handleEdit(newRegexValue, isEditing)
+  const handleCloseEdit = () => {
     setIsEditing(null)
     setNewRegexValue("")
   }
 
+  const handleSaveClick = () => {
+    handleEdit(newRegexValue, isEditing)
+    handleCloseEdit()
+  }
+
   const handleDeleteClick = () => {
     handleDelete(isEditing)
-    setIsEditing(null)
-    setNewRegexValue("")
+    handleCloseEdit()
   }
+
+  const handleCancelClick = () => {}
 
   const renderEditMode = (value) => {
     return (
@@ -30,6 +35,11 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
         <Button onClick={() => handleDeleteClick()}>Delete</Button>
       </div>
     )
+  }
+
+  const renderCancelButton = () => {
+    if (!isEditing) return null
+    return <Button onClick={() => handleCloseEdit()}>Cancel</Button>
   }
 
   const renderData = () => {
@@ -51,6 +61,7 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
     <div className="flex flex-col items-center m-4 max-w-[80%]">
       <p>Expressions</p>
       {renderData()}
+      {isEditing && renderCancelButton()}
     </div>
   )
 }
