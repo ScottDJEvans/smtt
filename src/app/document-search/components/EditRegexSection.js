@@ -21,8 +21,6 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
     handleCloseEdit()
   }
 
-  const handleCancelClick = () => {}
-
   const renderEditMode = (value) => {
     return (
       <div className="items-center my-2 max-w-[80%]">
@@ -40,6 +38,15 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
   const renderCancelButton = () => {
     if (!isEditing) return null
     return <Button onClick={() => handleCloseEdit()}>Cancel</Button>
+  }
+
+  const renderAddButton = () => {
+    if (isEditing) return null
+    return (
+      <>
+        <Button onClick={() => setIsEditing("new")}>Add</Button>
+      </>
+    )
   }
 
   const renderData = () => {
@@ -61,6 +68,7 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
     <div className="flex flex-col items-center m-4 max-w-[80%]">
       <p>Expressions</p>
       {renderData()}
+      {renderAddButton()}
       {isEditing && renderCancelButton()}
     </div>
   )
