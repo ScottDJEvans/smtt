@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import PropTypes from "prop-types"
 import { useState } from "react"
 
-const EditRegexSection = ({ options, handleEdit }) => {
+const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
   const [isEditing, setIsEditing] = useState(null)
   const [newRegexValue, setNewRegexValue] = useState("")
 
@@ -12,15 +12,22 @@ const EditRegexSection = ({ options, handleEdit }) => {
     setNewRegexValue("")
   }
 
+  const handleDeleteClick = () => {
+    handleDelete(isEditing)
+    setIsEditing(null)
+    setNewRegexValue("")
+  }
+
   const renderEditMode = (value) => {
     return (
-      <div>
+      <div className="items-center my-2 max-w-[80%]">
         <p>Editing {value}</p>
         <input
           defaultValue={value}
           onChange={(e) => setNewRegexValue(e.target.value)}
         />
         <Button onClick={() => handleSaveClick()}>Save</Button>
+        <Button onClick={() => handleDeleteClick()}>Delete</Button>
       </div>
     )
   }
@@ -28,10 +35,10 @@ const EditRegexSection = ({ options, handleEdit }) => {
   const renderData = () => {
     return options.map((data) => {
       return (
-        <div>
+        <div className="flex flex-col w-full items-center">
           <Button
             onClick={() => setIsEditing(data.value)}
-            className="bg-tertiary"
+            className="bg-tertiary max-w-[80%]"
           >
             {data.value}
           </Button>
@@ -41,8 +48,8 @@ const EditRegexSection = ({ options, handleEdit }) => {
     })
   }
   return (
-    <div className="flex flex-col items-center m-2">
-        <p>Expressions</p>
+    <div className="flex flex-col items-center m-4 max-w-[80%]">
+      <p>Expressions</p>
       {renderData()}
     </div>
   )
