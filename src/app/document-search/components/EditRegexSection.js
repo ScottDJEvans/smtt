@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button"
 import PropTypes from "prop-types"
 import { useState } from "react"
 
-const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
+const EditRegexSection = ({
+  options,
+  handleEdit,
+  handleDelete
+}) => {
   const [isEditing, setIsEditing] = useState(null)
   const [newRegexValue, setNewRegexValue] = useState("")
 
@@ -26,10 +30,13 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
       <div className="items-center my-2 max-w-[80%]">
         <p>Editing {value}</p>
         <input
+          className="max-w-[120px] my-2"
           defaultValue={value}
           onChange={(e) => setNewRegexValue(e.target.value)}
         />
-        <Button onClick={() => handleSaveClick()}>Save</Button>
+        <Button className="my-2" onClick={() => handleSaveClick()}>
+          Save
+        </Button>
         <Button onClick={() => handleDeleteClick()}>Delete</Button>
       </div>
     )
@@ -65,7 +72,7 @@ const EditRegexSection = ({ options, handleEdit, handleDelete }) => {
     })
   }
   return (
-    <div className="flex flex-col items-center m-4 max-w-[80%]">
+    <div className="flex flex-col items-center text-center m-4 max-w-[150px]">
       <p>Expressions</p>
       {renderData()}
       {renderAddButton()}

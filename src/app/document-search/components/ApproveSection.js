@@ -11,11 +11,17 @@ import {
 import PropTypes from "prop-types"
 import { useState } from "react"
 
-const ApproveSection = ({ options }) => {
+const ApproveSection = ({ options, handleSelection }) => {
   const [selectedRegex, setSelectedRegex] = useState(null)
+
+    const handleOptionSelect = (value) => {
+        handleSelection(value)
+        setSelectedRegex(value)
+    }
+
   const renderDropdown = () => {
     return (
-      <Select onValueChange={(option) => setSelectedRegex(option)}>
+      <Select onValueChange={(option) => handleOptionSelect(option)}>
         <SelectTrigger>
           <SelectValue placeholder="Select Regex" />
         </SelectTrigger>
