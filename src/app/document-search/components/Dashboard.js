@@ -9,7 +9,7 @@ import { getInitialDocumentText } from "./utils"
 const Dashboard = ({ regexData = MOCK_REGEX_VALUES }) => {
     const initialText = getInitialDocumentText()
   return (
-    <div>
+    <div className="flex">
       <Sidebar regexData={regexData}/>
       <MainDocumentArea initialText={initialText} />
     </div>
