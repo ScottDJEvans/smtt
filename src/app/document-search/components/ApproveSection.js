@@ -38,7 +38,7 @@ const ApproveSection = ({ options }) => {
   }
 
   return (
-    <div>
+    <div className="m-2 flex items-center flex-col">
       {renderDropdown()}
       <p>{selectedRegex}</p>
       {renderCTAs()}
