@@ -55,7 +55,7 @@ const EditRegexSection = ({ options, handleRegexChange }) => {
   const renderData = () => {
     return options.map((data) => {
       return (
-        <div className="flex flex-col w-full items-center">
+        <div key={data.value} className="flex flex-col w-full items-center">
           {!isEditing && (
             <Button
               onClick={() => setIsEditing(data.value)}
