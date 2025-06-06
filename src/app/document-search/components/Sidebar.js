@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import ApproveSection from "./ApproveSection"
+import EditRegexSection from "./EditRegexSection"
 import PropTypes from "prop-types"
 
 const Sidebar = ({ regexData }) => {
@@ -22,7 +23,7 @@ const Sidebar = ({ regexData }) => {
       {shouldShowApprovalSection ? (
         <ApproveSection options={regexData} />
       ) : (
-        <div>Edit Placeholder</div>
+        <EditRegexSection options={regexData}/>
       )}
     </aside>
   )
