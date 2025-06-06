@@ -7,9 +7,12 @@ const MainDocumentArea = ({ initialText, matches }) => {
     return (
       <div className="my-4 w-full">
         {matches ? (
+          <>
           <p>
-            Results from search: <span>{matches.toString()}</span>
+            Results from search:
           </p>
+          <textarea className="w-full h-80" value={matches.toString()} disabled/>
+          </>
         ) : (
           <p>No matches found.</p>
         )}

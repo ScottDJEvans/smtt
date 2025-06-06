@@ -6,7 +6,7 @@ import ApproveSection from "./ApproveSection"
 import EditRegexSection from "./EditRegexSection"
 import PropTypes from "prop-types"
 
-const Sidebar = ({ regexData, handleModeChange }) => {
+const Sidebar = ({ regexData, handleModeChange, handleRegexChange }) => {
   const [shouldShowApprovalSection, setShouldShowApprovalSection] =
     useState(false)
   return (
@@ -25,7 +25,7 @@ const Sidebar = ({ regexData, handleModeChange }) => {
       {shouldShowApprovalSection ? (
         <ApproveSection options={regexData} handleSelection={(selectedRegex) => handleModeChange(selectedRegex)} />
       ) : (
-        <EditRegexSection options={regexData}/>
+        <EditRegexSection options={regexData} handleRegexChange={(action, value, newValue) => handleRegexChange(action, value, newValue)}/>
       )}
     </aside>
   )
@@ -35,4 +35,6 @@ export default Sidebar
 
 Sidebar.propTypes = {
   regexData: PropTypes.array,
+  handleModeChange: PropTypes.func,
+  handleRegexChange: PropTypes.func
 }
