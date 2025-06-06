@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button"
 import PropTypes from "prop-types"
 import { useState } from "react"
+import { REGEX_ACTIONS } from "./constants"
 
 const EditRegexSection = ({
   options,
-  handleEdit,
-  handleDelete
+  handleRegexChange
 }) => {
   const [isEditing, setIsEditing] = useState(null)
   const [newRegexValue, setNewRegexValue] = useState("")
@@ -16,12 +16,12 @@ const EditRegexSection = ({
   }
 
   const handleSaveClick = () => {
-    handleEdit(newRegexValue, isEditing)
+    handleRegexChange(REGEX_ACTIONS.EDIT, isEditing, newRegexValue)
     handleCloseEdit()
   }
 
   const handleDeleteClick = () => {
-    handleDelete(isEditing)
+    handleRegexChange(REGEX_ACTIONS.DELETE, isEditing)
     handleCloseEdit()
   }
 
@@ -37,7 +37,7 @@ const EditRegexSection = ({
         <Button className="my-2" onClick={() => handleSaveClick()}>
           Save
         </Button>
-        <Button onClick={() => handleDeleteClick()}>Delete</Button>
+        <Button className="bg-destructive" onClick={() => handleDeleteClick()}>Delete</Button>
       </div>
     )
   }
@@ -60,12 +60,12 @@ const EditRegexSection = ({
     return options.map((data) => {
       return (
         <div className="flex flex-col w-full items-center">
-          <Button
+        { !isEditing && <Button
             onClick={() => setIsEditing(data.value)}
             className="bg-tertiary max-w-[80%]"
-          >
+            >
             {data.value}
-          </Button>
+            </Button>}
           {isEditing === data.value && renderEditMode(data.value)}
         </div>
       )
@@ -73,7 +73,7 @@ const EditRegexSection = ({
   }
   return (
     <div className="flex flex-col items-center text-center m-4 max-w-[150px]">
-      <p>Expressions</p>
+      <p>Editing expressions</p>
       {renderData()}
       {renderAddButton()}
       {isEditing && renderCancelButton()}
@@ -85,7 +85,5 @@ export default EditRegexSection
 
 EditRegexSection.propTypes = {
   options: PropTypes.array,
-  handleAdd: PropTypes.func,
-  handleEdit: PropTypes.func,
-  handleDelete: PropTypes.func,
+  handleRegexChange: PropTypes.func
 }
