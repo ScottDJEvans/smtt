@@ -25,7 +25,7 @@ const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
 
   useEffect(() => {
     refetchRegexResults(regexData)
-  }, [regexData])
+  }, [regexData, document])
 
   const handleRegexChange = (action, value, newValue) => {
     let updated = [...regexData]
@@ -69,7 +69,7 @@ const Dashboard = ({ savedRegexData = MOCK_REGEX_VALUES, initialText }) => {
         }
         handleStatusChange={(status, selectedRegexValue) => handleStatusChange(status, selectedRegexValue)}
       />
-      <MainDocumentArea initialText={initialText} matches={results} />
+      <MainDocumentArea initialText={initialText} matches={results} handleChange={(e) => setDocument(e.target.value)} />
     </div>
   )
 }
