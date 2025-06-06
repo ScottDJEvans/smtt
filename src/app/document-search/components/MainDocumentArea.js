@@ -2,7 +2,7 @@
 
 import PropTypes from "prop-types"
 
-const MainDocumentArea = ({ initialText, matches }) => {
+const MainDocumentArea = ({ initialText, matches, handleChange }) => {
   const renderTextMatchSection = () => {
     return (
       <div className="my-4 w-full">
@@ -21,7 +21,7 @@ const MainDocumentArea = ({ initialText, matches }) => {
   }
   return (
     <div className="w-full">
-      <textarea className="w-full h-80" defaultValue={initialText} />
+      <textarea className="w-full h-80" defaultValue={initialText} onChange={(e) => handleChange(e)}/>
       {renderTextMatchSection()}
     </div>
   )
@@ -31,5 +31,6 @@ export default MainDocumentArea
 
 MainDocumentArea.propTypes = {
   initialText: PropTypes.string.isRequired,
-  matches: PropTypes.array
+  matches: PropTypes.array,
+  handleChange: PropTypes.func
 }
